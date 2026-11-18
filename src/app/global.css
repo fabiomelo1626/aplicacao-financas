@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Estilos globais e reset básico */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Oculta o botão flutuante de status e erros do Next.js no canto da tela */
+nextjs-portal {
+  display: none !important;
+}
+
+/* Oculta o toast e os diálogos de overlay de dev */
+[data-nextjs-toast],
+[data-nextjs-toast-wrapper],
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+}

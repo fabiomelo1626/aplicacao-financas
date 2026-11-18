@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner  # <-- OBRIGATÓRIO: Força o modo de produção (Runner)
+      args:
+        NEXT_PUBLIC_API_URL: http://181.224.24.33:5500
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - NEXT_PUBLIC_API_URL=http://181.224.24.33:5500
