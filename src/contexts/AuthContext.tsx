@@ -5,8 +5,26 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
 // 1. Tipagem dos dados do usuário e local
+export interface LocalAcesso {
+  id: number;
+  nome: string;
+  cnpj?: number;
+  Logradouro?: string;
+  Numero?: string;
+  Bairro?: string;
+  CEP?: number;
+  Cidade?: string;
+  Estado?: string;
+  email?: string;
+  telefone?: number;
+  logo?: string;
+  is_active: boolean;
+}
+
 export interface User {
   id: number;
+  username: string;
+  fullname: string;
   nome: string;
   email?: string;
   first_access?: boolean;
@@ -15,6 +33,8 @@ export interface User {
 export interface Local {
   id: number;
   nome: string;
+  Cidade?: string;
+  Estado?: string;
 }
 
 // 2. Tipagem do que o Contexto disponibiliza para o app
