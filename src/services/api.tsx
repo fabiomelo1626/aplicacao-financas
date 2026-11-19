@@ -5,7 +5,7 @@ import { EntradaRecebimento, CobrancaPixRequest, CobrancaPixResponse } from '@/s
 
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5500',
 });
 
 api.interceptors.request.use((config) => {
