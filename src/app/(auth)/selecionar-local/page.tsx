@@ -4,14 +4,15 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/contexts/AuthContext';
-import { LocalAcesso } from '@/src/types';
+import type { LocalAcesso } from '@/src/types/index';
+
 
 export default function SelecionarLocalPage() {
   const router = useRouter();
   const { user, locais, selecionarLocal } = useAuth();
 
   const handleEscolherLocal = (local: LocalAcesso) => {
-    selecionarLocal(local);
+    //selecionarLocal(local);
     router.push('/dashboard');
   };
 

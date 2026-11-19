@@ -5,7 +5,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import type { User, Local, LocalAcesso } from '@/src/types/index';
 
-// 1. Tipagem dos dados do usuário e local
 
 
 // 2. Tipagem do que o Contexto disponibiliza para o app
@@ -17,7 +16,9 @@ interface AuthContextType {
   loading: boolean;
   setAuthData: (user: User, locais: Local[], token: string) => void;
   setLocalAtivo: (local: Local) => void;
+  selecionarLocal: (local: Local, novoToken: string) => void;
   logout: () => void;
+
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -85,6 +86,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('@app:localAtivo', JSON.stringify(local));
   };
 
+  const selecionarLocal = (local: Local, novoToken: string) => {
+    setLocalAtivoState(local);
+    setToken(novoToken);
+
+    localStorage.setItem('@app:localAtivo', JSON.stringify(local));
+    localStorage.setItem('@app:token', novoToken);
+  };
+
   // E) LOGOUT COMPLETO: Limpa memória, localStorage e redireciona
   const logout = () => {
     setUser(null);
@@ -114,6 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setAuthData,
         setLocalAtivo,
         logout,
+        selecionarLocal,
       }}
     >
       {!loading && children}
