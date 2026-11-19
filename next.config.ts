@@ -1,25 +1,14 @@
-
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  devIndicators: {
-    // Mantém a posição do indicador de desenvolvimento
-    position: 'bottom-right',
-  },
-
-  experimental: {
-    agentFeedback: true,
-  },
-
-  cacheComponents: true,
-
-  partialPrefetching: true,
-
+  devIndicators: false,
+  cacheComponents: false,
+  partialPrefetching: false,
   turbopack: {
     rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
       },
     },
   },
