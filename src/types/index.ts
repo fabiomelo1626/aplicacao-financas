@@ -1,21 +1,34 @@
-// src/types/index.ts
+export interface User {
+  id: number;
+  username: string;
+  fullname: string;
+  nome: string;
+  email?: string;
+  first_access?: boolean;
+}
+
+export interface Local {
+  id: number;
+  nome: string;
+  Cidade?: string;
+  Estado?: string;
+}
 
 export interface LocalAcesso {
   id: number;
   nome: string;
-  cnpj?: number;
+  cnpj?: number | string;
   Logradouro?: string;
   Numero?: string;
   Bairro?: string;
-  CEP?: number;
+  CEP?: number | string;
   Cidade?: string;
   Estado?: string;
   email?: string;
-  telefone?: number;
+  telefone?: number | string;
   logo?: string;
-  is_active: boolean;
+  is_active?: boolean;
 }
-
 
 
 export interface TipoAtendimento {
