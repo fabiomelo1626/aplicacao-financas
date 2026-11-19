@@ -1,15 +1,5 @@
 // src/types/index.ts
 
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  fullname?: string;
-  status: boolean;
-  avatar?: string;
-  first_access: boolean;
-}
-
 export interface LocalAcesso {
   id: number;
   nome: string;
