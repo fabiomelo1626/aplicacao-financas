@@ -5,7 +5,7 @@ import Link from 'next/link';
 import axios from 'axios';
 
 const apiPublica = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5500',
 });
 
 export default function RootPage() {

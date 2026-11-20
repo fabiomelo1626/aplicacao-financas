@@ -1,21 +1,13 @@
-
 services:
-  app:
+  frontend-portal:
     build:
       context: .
-      dockerfile: Dockerfile
-      target: runner
       args:
-        NEXT_PUBLIC_API_URL: http://2.24.79.109:5500
-
-    container_name: nova-aplicacao
-
+        NEXT_PUBLIC_API_URL: https://institutoviverbem.tech
+    container_name: portal-pagamentos-front
+    restart: always
     ports:
       - "3002:3000"
-
     environment:
-      NODE_ENV: production
-      PORT: 3000
-      NEXT_PUBLIC_API_URL: http://2.24.79.109:5500
-
-    restart: always
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
