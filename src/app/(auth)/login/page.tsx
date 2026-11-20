@@ -6,7 +6,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const apiPublica = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5500',
 });
 
 export default function LoginPage() {

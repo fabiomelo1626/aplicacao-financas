@@ -24,7 +24,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 // Rotas públicas que NÃO precisam de login
-const PUBLIC_ROUTES = ['/login', '/esqueci-senha', '/redefinir-senha'];
+const PRIVATE_PREFIXES = ['/dashboard'];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -53,13 +53,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(false);
   }, []);
 
-  // B) Route Guard: Bloqueia navegação sem token em páginas privadas
+  // B) Route Guard: Bloqueia navegação sem token apenas em páginas privadas
   useEffect(() => {
     if (loading) return;
 
-    const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+    const isPrivateRoute = PRIVATE_PREFIXES.some((prefix) =>
+      pathname.startsWith(prefix)
+    );
 
-    if (!token && !isPublicRoute) {
+    if (!token && isPrivateRoute) {
       router.push('/login');
     }
   }, [token, pathname, loading, router]);
