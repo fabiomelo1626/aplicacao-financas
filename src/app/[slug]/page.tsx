@@ -8,7 +8,7 @@ import { fetchEnderecoByCEP } from '@/src/services/viacep';
 import { maskCEP, maskPhone, unmaskNumber } from '@/src/utils/formatters';
 
 const apiPublica = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5500',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || '',
 });
 
 export default function CheckoutFilialPage() {
