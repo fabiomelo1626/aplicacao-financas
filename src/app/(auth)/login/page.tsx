@@ -123,14 +123,14 @@ export default function LoginPage() {
         {/* Links de recuperação de senha */}
         <div className="flex items-center justify-between text-xs pt-1">
           <Link
-            href="src/app/esqueci-senha"
+            href="/esqueci-senha"
             className="text-slate-500 hover:text-rose-600 font-medium transition"
           >
             Esqueceu a senha?
           </Link>
 
           <Link
-            href="src/app/redefinir-senha"
+            href="/redefinir-senha"
             className="text-rose-600 hover:text-rose-700 font-semibold transition"
           >
             Redefinir senha
