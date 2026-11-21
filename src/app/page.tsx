@@ -104,7 +104,7 @@ export default function RootPage() {
                 {unidades.map((u) => (
                   <Link
                     key={u.id}
-                    href={`/${u.slug}`}
+                    href={`/${u.nome_filial}`}
                     className="w-full p-3.5 border border-slate-200 hover:border-rose-500 rounded-xl hover:bg-rose-50/40 transition flex items-center justify-between group shadow-2xs"
                   >
                     <div className="flex items-center gap-3 min-w-0">
