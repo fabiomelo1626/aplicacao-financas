@@ -120,6 +120,22 @@ export default function LoginPage() {
             {loading ? 'Autenticando...' : 'Entrar no Sistema'}
           </button>
         </form>
+        {/* Links de recuperação de senha */}
+        <div className="flex items-center justify-between text-xs pt-1">
+          <Link
+            href="src/app/esqueci-senha/page.tsx"
+            className="text-slate-500 hover:text-rose-600 font-medium transition"
+          >
+            Esqueceu a senha?
+          </Link>
+
+          <Link
+            href="src/app/redefinir-senha/page.tsx"
+            className="text-rose-600 hover:text-rose-700 font-semibold transition"
+          >
+            Redefinir senha
+          </Link>
+        </div>
 
         <div className="text-center pt-2 border-t border-slate-100">
           <p className="text-[11px] text-slate-400">
