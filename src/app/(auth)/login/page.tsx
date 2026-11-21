@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useAuth } from '@/src/contexts/AuthContext';
+
 
 const apiPublica = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5500',
@@ -14,6 +16,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const { setAuthData } = useAuth(); // importe useAuth de '@/src/contexts/AuthContext'
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,11 +25,15 @@ export default function LoginPage() {
 
     try {
       const res = await apiPublica.post('/api/login', { username, password });
-      const { access_token } = res.data;
+      const { access_token, user, locais } = res.data;
 
-      // Guarda o token nos cookies e no localStorage
+      // Mantém compatibilidade com Cookies e chaves antigas
       Cookies.set('token', access_token, { expires: 1, path: '/' });
       localStorage.setItem('token', access_token);
+
+      // Alimenta o AuthContext (@app:token e @app:user) para o Route Guard liberar o /dashboard
+      const userObj = user || { username };
+      setAuthData(userObj, locais || [], access_token);
 
       // Redireciona para o painel administrativo
       window.location.href = '/dashboard';
@@ -41,10 +48,11 @@ export default function LoginPage() {
     }
   };
 
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-6">
-        
+
         {/* Topo com Botão de Retorno e Ícone */}
         <div className="flex justify-between items-center border-b border-slate-100 pb-4">
           <Link
