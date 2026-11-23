@@ -25,18 +25,22 @@ export default function LoginPage() {
 
     try {
       const res = await apiPublica.post('/api/login', { username, password });
-      const { access_token, user, locais } = res.data;
+      const { access_token, user, locais, primeiro_acesso } = res.data;
 
-      // Mantém compatibilidade com Cookies e chaves antigas
+      const isPrimeiroAcesso = Boolean(primeiro_acesso ?? user?.primeiro_acesso);
+      const userObj = { ...(user || { username }), primeiro_acesso: isPrimeiroAcesso };
+
+      // Salva token nos cookies, localStorage e AuthContext para autenticar a troca de senha
       Cookies.set('token', access_token, { expires: 1, path: '/' });
       localStorage.setItem('token', access_token);
-
-      // Alimenta o AuthContext (@app:token e @app:user) para o Route Guard liberar o /dashboard
-      const userObj = user || { username };
       setAuthData(userObj, locais || [], access_token);
 
-      // Redireciona para o painel administrativo
-      window.location.href = '/dashboard';
+      // Desvia para primeiro acesso antes de liberar o painel
+      if (isPrimeiroAcesso) {
+        window.location.href = '/primeiro-acesso'; // ou '/redefinir-senha'
+      } else {
+        window.location.href = '/dashboard';
+      }
     } catch (err: any) {
       if (err.response?.status === 401) {
         setErro('Username ou senha incorretos.');
