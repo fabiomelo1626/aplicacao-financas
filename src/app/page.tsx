@@ -41,11 +41,11 @@ export default function RootPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      
+
       {/* 1. CABEÇALHO DE LARGURA TOTAL */}
       <header className="bg-white border-b border-slate-200 relative w-full">
         <div className="w-full px-6 lg:px-12 py-6 flex flex-col items-center justify-center relative">
-          
+
           <div className="w-full flex justify-end md:absolute md:right-12 md:top-6 mb-4 md:mb-0">
             <Link
               href="/login"
@@ -78,7 +78,7 @@ export default function RootPage() {
       {/* 2. CONTEÚDO PRINCIPAL PREENCHENDO TODA A TELA (SEM LIMITE CENTRALIZADO) */}
       <main className="w-full px-6 lg:px-12 py-8 flex-1">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
+
           {/* COLUNA ESQUERDA (3 colunas): ENCOSTADA NA MARGEM ESQUERDA */}
           <aside className="lg:col-span-3 bg-white rounded-2xl shadow-xs border border-slate-200 p-6 space-y-5 lg:sticky lg:top-6">
             <div className="border-b border-slate-100 pb-4">
@@ -140,31 +140,41 @@ export default function RootPage() {
 
           {/* COLUNA DIREITA (9 colunas): CARROSSEL AMPLO + 3 CARDS POR LINHA */}
           <div className="lg:col-span-9 space-y-8">
-            
+
             {/* CARROSSEL DE DESTAQUES */}
             {carrossel.length > 0 && (
-              <section className="relative w-full h-72 md:h-[420px] rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-900 group">
+              <section className="relative w-full h-72 sm:h-96 md:h-[460px] rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-900 group">
+                {/* Camada de fundo desfocada para preencher laterais sem deixar barras pretas */}
+                <img
+                  src={carrossel[slideAtual].imagem_base64}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+                />
+
+                {/* Imagem principal ajustada por completo sem cortes */}
                 <img
                   src={carrossel[slideAtual].imagem_base64}
                   alt={carrossel[slideAtual].titulo}
-                  className="w-full h-full object-cover opacity-90 transition-all duration-500"
+                  className="relative z-10 w-full h-full object-contain transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/25 to-transparent flex flex-col justify-end p-6 md:p-10 text-white">
+
+                <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/90 via-slate-900/20 to-transparent flex flex-col justify-end p-6 md:p-10 text-white pointer-events-none">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-rose-400 mb-1">
                     Destaque
                   </span>
-                  <h2 className="text-2xl md:text-4xl font-bold max-w-3xl">
+                  <h2 className="text-2xl md:text-4xl font-bold max-w-3xl drop-shadow-xs">
                     {carrossel[slideAtual].titulo}
                   </h2>
                   {carrossel[slideAtual].subtitulo && (
-                    <p className="text-xs md:text-base text-slate-200 mt-2 max-w-2xl">
+                    <p className="text-xs md:text-base text-slate-200 mt-2 max-w-2xl drop-shadow-xs">
                       {carrossel[slideAtual].subtitulo}
                     </p>
                   )}
                   {carrossel[slideAtual].link_destino && (
                     <Link
                       href={carrossel[slideAtual].link_destino}
-                      className="mt-4 inline-block w-fit bg-rose-600 hover:bg-rose-700 text-white text-xs md:text-sm font-semibold px-6 py-2.5 rounded-xl transition shadow-sm"
+                      className="mt-4 inline-block w-fit bg-rose-600 hover:bg-rose-700 text-white text-xs md:text-sm font-semibold px-6 py-2.5 rounded-xl transition shadow-sm pointer-events-auto"
                     >
                       Acessar →
                     </Link>
@@ -175,24 +185,23 @@ export default function RootPage() {
                   <>
                     <button
                       onClick={slideAnterior}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold opacity-0 group-hover:opacity-100 transition shadow-md"
+                      className="absolute z-30 left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold opacity-0 group-hover:opacity-100 transition shadow-md"
                     >
                       ‹
                     </button>
                     <button
                       onClick={proximoSlide}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold opacity-0 group-hover:opacity-100 transition shadow-md"
+                      className="absolute z-30 right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold opacity-0 group-hover:opacity-100 transition shadow-md"
                     >
                       ›
                     </button>
-                    <div className="absolute bottom-4 right-6 flex gap-2">
+                    <div className="absolute z-30 bottom-4 right-6 flex gap-2">
                       {carrossel.map((_, idx) => (
                         <button
                           key={idx}
                           onClick={() => setSlideAtual(idx)}
-                          className={`h-2 rounded-full transition-all ${
-                            idx === slideAtual ? 'w-7 bg-rose-500' : 'w-2 bg-white/60'
-                          }`}
+                          className={`h-2 rounded-full transition-all ${idx === slideAtual ? 'w-7 bg-rose-500' : 'w-2 bg-white/60'
+                            }`}
                         />
                       ))}
                     </div>
@@ -218,29 +227,19 @@ export default function RootPage() {
                   {cards.map((card) => {
                     const CardBox = (
                       <div className="bg-white border border-slate-200 hover:border-rose-400 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition h-full flex flex-col group">
-                        <div className="h-52 bg-slate-100 overflow-hidden">
+                        <div className="relative aspect-[16/10] w-full bg-slate-100 overflow-hidden flex items-center justify-center">
+                          {/* Fundo sutil desfocado para evitar bordas vazias bruscas */}
+                          <img
+                            src={card.imagem_base64}
+                            alt=""
+                            aria-hidden="true"
+                            className="absolute inset-0 w-full h-full object-cover blur-xl opacity-25 scale-110 pointer-events-none"
+                          />
                           <img
                             src={card.imagem_base64}
                             alt={card.titulo}
-                            className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                            className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition duration-300"
                           />
-                        </div>
-                        <div className="p-5 space-y-2 flex-1 flex flex-col justify-between">
-                          <div>
-                            <h3 className="font-bold text-slate-800 text-base group-hover:text-rose-600 transition">
-                              {card.titulo}
-                            </h3>
-                            {card.subtitulo && (
-                              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                                {card.subtitulo}
-                              </p>
-                            )}
-                          </div>
-                          {card.link_destino && (
-                            <span className="text-xs text-rose-600 font-semibold pt-3 inline-flex items-center gap-1">
-                              Ver detalhes →
-                            </span>
-                          )}
                         </div>
                       </div>
                     );
