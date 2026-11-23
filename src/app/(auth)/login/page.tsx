@@ -25,9 +25,9 @@ export default function LoginPage() {
 
     try {
       const res = await apiPublica.post('/api/login', { username, password });
-      const { access_token, user, locais, primeiro_acesso } = res.data;
+      const { access_token, user, locais, first_access } = res.data;
 
-      const isPrimeiroAcesso = Boolean(primeiro_acesso ?? user?.primeiro_acesso);
+      const isPrimeiroAcesso = Boolean(first_access ?? user?.first_access);
       const userObj = { ...(user || { username }), primeiro_acesso: isPrimeiroAcesso };
 
       // Salva token nos cookies, localStorage e AuthContext para autenticar a troca de senha

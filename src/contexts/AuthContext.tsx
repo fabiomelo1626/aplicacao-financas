@@ -63,8 +63,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (!token && isPrivateRoute) {
       router.push('/login');
+      return;
     }
-  }, [token, pathname, loading, router]);
+
+    // Se estiver logado mas ainda no primeiro acesso, força ir para troca de senha
+    if (token && user?.first_access && pathname !== '/primeiro-acesso') {
+      router.push('/primeiro-acesso');
+    }
+  }, [token, user, pathname, loading, router]);
 
   // C) Função chamada no LOGIN para salvar as credenciais
   const setAuthData = (newUser: User, newLocais: Local[], newToken: string) => {
