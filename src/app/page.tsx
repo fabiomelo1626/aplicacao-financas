@@ -142,91 +142,97 @@ export default function RootPage() {
           <div className="lg:col-span-9 space-y-8">
 
             {/* CARROSSEL DE DESTAQUES */}
-            {carrossel.length > 0 && (
-              <section className="relative w-full h-72 sm:h-96 md:h-[460px] rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-900 group">
-                {/* Camada de fundo desfocada para preencher laterais sem deixar barras pretas */}
-                <img
-                  src={carrossel[slideAtual].imagem_base64}
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
-                />
+            {
+              carrossel.length > 0 && (
+                <section className="relative w-full rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white group">
+                  <div className="grid grid-cols-1 md:grid-cols-12 min-h-[340px] md:min-h-[420px]">
 
-                {/* Imagem principal ajustada por completo sem cortes */}
-                <img
-                  src={carrossel[slideAtual].imagem_base64}
-                  alt={carrossel[slideAtual].titulo}
-                  className="relative z-10 w-full h-full object-contain transition-all duration-500"
-                />
-
-                <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/90 via-slate-900/20 to-transparent flex flex-col justify-end p-6 md:p-10 text-white pointer-events-none">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-400 mb-1">
-                    Destaque
-                  </span>
-                  <h2 className="text-2xl md:text-4xl font-bold max-w-3xl drop-shadow-xs">
-                    {carrossel[slideAtual].titulo}
-                  </h2>
-                  {carrossel[slideAtual].subtitulo && (
-                    <p className="text-xs md:text-base text-slate-200 mt-2 max-w-2xl drop-shadow-xs">
-                      {carrossel[slideAtual].subtitulo}
-                    </p>
-                  )}
-                  {carrossel[slideAtual].tipo_midia === 'VIDEO' ? (
-                    <video
-                      key={carrossel[slideAtual].id}
-                      src={carrossel[slideAtual].imagem_base64}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="relative z-10 w-full h-full object-contain"
-                    />
-                  ) : (
-                    <>
-                      <img
-                        src={carrossel[slideAtual].imagem_base64}
-                        alt=""
-                        aria-hidden="true"
-                        className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
-                      />
-                      <img
-                        src={carrossel[slideAtual].imagem_base64}
-                        alt={carrossel[slideAtual].titulo}
-                        className="relative z-10 w-full h-full object-contain transition-all duration-500"
-                      />
-                    </>
-                  )}
-                </div>
-
-                {carrossel.length > 1 && (
-                  <>
-                    <button
-                      onClick={slideAnterior}
-                      className="absolute z-30 left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold opacity-0 group-hover:opacity-100 transition shadow-md"
-                    >
-                      ‹
-                    </button>
-                    <button
-                      onClick={proximoSlide}
-                      className="absolute z-30 right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold opacity-0 group-hover:opacity-100 transition shadow-md"
-                    >
-                      ›
-                    </button>
-                    <div className="absolute z-30 bottom-4 right-6 flex gap-2">
-                      {carrossel.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSlideAtual(idx)}
-                          className={`h-2 rounded-full transition-all ${idx === slideAtual ? 'w-7 bg-rose-500' : 'w-2 bg-white/60'
-                            }`}
+                    {/* LADO DA MÍDIA (7 colunas) — 100% visível, sem nada por cima */}
+                    <div className="md:col-span-7 bg-slate-100 flex items-center justify-center p-4 md:p-6">
+                      {carrossel[slideAtual].tipo_midia === 'VIDEO' ? (
+                        <video
+                          key={carrossel[slideAtual].id}
+                          src={carrossel[slideAtual].imagem_base64}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="max-h-[360px] w-full object-contain rounded-xl"
                         />
-                      ))}
+                      ) : (
+                        <img
+                          src={carrossel[slideAtual].imagem_base64}
+                          alt={carrossel[slideAtual].titulo}
+                          className="max-h-[360px] w-full object-contain rounded-xl transition-all duration-500"
+                        />
+                      )}
                     </div>
-                  </>
-                )}
-              </section>
-            )}
 
+                    {/* LADO DO TEXTO (5 colunas) — Separado da imagem */}
+                    <div className="md:col-span-5 p-6 md:p-10 flex flex-col justify-between bg-white">
+                      <div className="space-y-3 my-auto">
+                        <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-3 py-1 rounded-full">
+                          Destaque
+                        </span>
+                        <h2 className="text-xl md:text-3xl font-bold text-slate-800 leading-tight">
+                          {carrossel[slideAtual].titulo}
+                        </h2>
+                        {carrossel[slideAtual].subtitulo && (
+                          <p className="text-xs md:text-sm text-slate-500 leading-relaxed">
+                            {carrossel[slideAtual].subtitulo}
+                          </p>
+                        )}
+                        {carrossel[slideAtual].link_destino && (
+                          <div className="pt-2">
+                            <Link
+                              href={carrossel[slideAtual].link_destino}
+                              className="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-xs md:text-sm font-semibold px-6 py-2.5 rounded-xl transition shadow-xs"
+                            >
+                              Acessar →
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Controles e indicadores no rodapé da área de texto */}
+                      {carrossel.length > 1 && (
+                        <div className="flex items-center justify-between pt-6 mt-6 border-t border-slate-100">
+                          <div className="flex gap-2">
+                            {carrossel.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => setSlideAtual(idx)}
+                                aria-label={`Ir para slide ${idx + 1}`}
+                                className={`h-2 rounded-full transition-all ${idx === slideAtual ? 'w-7 bg-rose-600' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                                  }`}
+                              />
+                            ))}
+                          </div>
+
+                          <div className="flex gap-2">
+                            <button
+                              onClick={slideAnterior}
+                              aria-label="Slide anterior"
+                              className="w-9 h-9 rounded-full border border-slate-200 hover:border-rose-500 hover:text-rose-600 text-slate-700 flex items-center justify-center text-base font-bold transition"
+                            >
+                              ‹
+                            </button>
+                            <button
+                              onClick={proximoSlide}
+                              aria-label="Próximo slide"
+                              className="w-9 h-9 rounded-full border border-slate-200 hover:border-rose-500 hover:text-rose-600 text-slate-700 flex items-center justify-center text-base font-bold transition"
+                            >
+                              ›
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+                </section>
+              )
+            }
             {/* CARDS FIXOS / INICIATIVAS E PROJETOS (3 colunas preenchidas) */}
             {cards.length > 0 && (
               <section className="space-y-4">
@@ -258,7 +264,7 @@ export default function RootPage() {
                             className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition duration-300"
                           />
                         </div>
-                        <div className="relative aspect-[16/10] w-full bg-slate-100 overflow-hidden flex items-center justify-center">
+                        <div className="aspect-[16/10] w-full bg-slate-100 overflow-hidden flex items-center justify-center p-2">
                           {card.tipo_midia === 'VIDEO' ? (
                             <video
                               src={card.imagem_base64}
@@ -266,22 +272,14 @@ export default function RootPage() {
                               loop
                               muted
                               playsInline
-                              className="relative z-10 w-full h-full object-contain bg-slate-900"
+                              className="w-full h-full object-contain rounded-lg"
                             />
                           ) : (
-                            <>
-                              <img
-                                src={card.imagem_base64}
-                                alt=""
-                                aria-hidden="true"
-                                className="absolute inset-0 w-full h-full object-cover blur-xl opacity-25 scale-110 pointer-events-none"
-                              />
-                              <img
-                                src={card.imagem_base64}
-                                alt={card.titulo}
-                                className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition duration-300"
-                              />
-                            </>
+                            <img
+                              src={card.imagem_base64}
+                              alt={card.titulo}
+                              className="w-full h-full object-contain group-hover:scale-103 transition duration-300"
+                            />
                           )}
                         </div>
                       </div>
