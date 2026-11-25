@@ -171,13 +171,30 @@ export default function RootPage() {
                       {carrossel[slideAtual].subtitulo}
                     </p>
                   )}
-                  {carrossel[slideAtual].link_destino && (
-                    <Link
-                      href={carrossel[slideAtual].link_destino}
-                      className="mt-4 inline-block w-fit bg-rose-600 hover:bg-rose-700 text-white text-xs md:text-sm font-semibold px-6 py-2.5 rounded-xl transition shadow-sm pointer-events-auto"
-                    >
-                      Acessar →
-                    </Link>
+                  {carrossel[slideAtual].tipo_midia === 'VIDEO' ? (
+                    <video
+                      key={carrossel[slideAtual].id}
+                      src={carrossel[slideAtual].imagem_base64}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="relative z-10 w-full h-full object-contain"
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={carrossel[slideAtual].imagem_base64}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+                      />
+                      <img
+                        src={carrossel[slideAtual].imagem_base64}
+                        alt={carrossel[slideAtual].titulo}
+                        className="relative z-10 w-full h-full object-contain transition-all duration-500"
+                      />
+                    </>
                   )}
                 </div>
 
@@ -240,6 +257,32 @@ export default function RootPage() {
                             alt={card.titulo}
                             className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition duration-300"
                           />
+                        </div>
+                        <div className="relative aspect-[16/10] w-full bg-slate-100 overflow-hidden flex items-center justify-center">
+                          {card.tipo_midia === 'VIDEO' ? (
+                            <video
+                              src={card.imagem_base64}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="relative z-10 w-full h-full object-contain bg-slate-900"
+                            />
+                          ) : (
+                            <>
+                              <img
+                                src={card.imagem_base64}
+                                alt=""
+                                aria-hidden="true"
+                                className="absolute inset-0 w-full h-full object-cover blur-xl opacity-25 scale-110 pointer-events-none"
+                              />
+                              <img
+                                src={card.imagem_base64}
+                                alt={card.titulo}
+                                className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition duration-300"
+                              />
+                            </>
+                          )}
                         </div>
                       </div>
                     );
