@@ -132,7 +132,7 @@ export default function GestaoPortalPage() {
         formData.append('ordens', String(item.ordem));
       });
 
-      await api.post('/api/admin/portal/destaques/upload-lote', formData, {
+      await api.post('/admin/portal/destaques/upload-lote', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
