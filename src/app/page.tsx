@@ -142,97 +142,95 @@ export default function RootPage() {
           <div className="lg:col-span-9 space-y-8">
 
             {/* CARROSSEL DE DESTAQUES */}
-            {
-              carrossel.length > 0 && (
-                <section className="relative w-full rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white group">
-                  <div className="grid grid-cols-1 md:grid-cols-12 min-h-[340px] md:min-h-[420px]">
+            {carrossel.length > 0 && (
+              <section className="relative w-full rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-900 group">
+                <div className="grid grid-cols-1 md:grid-cols-12 min-h-[340px] md:min-h-[420px]">
 
-                    {/* LADO DA MÍDIA (7 colunas) — 100% visível, sem nada por cima */}
-                    <div className="md:col-span-7 bg-slate-100 flex items-center justify-center p-4 md:p-6">
-                      {carrossel[slideAtual].tipo_midia === 'VIDEO' ? (
-                        <video
-                          key={carrossel[slideAtual].id}
-                          src={carrossel[slideAtual].imagem_base64}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="max-h-[360px] w-full object-contain rounded-xl"
-                        />
-                      ) : (
-                        <img
-                          src={carrossel[slideAtual].imagem_base64}
-                          alt={carrossel[slideAtual].titulo}
-                          className="max-h-[360px] w-full object-contain rounded-xl transition-all duration-500"
-                        />
-                      )}
-                    </div>
-
-                    {/* LADO DO TEXTO (5 colunas) — Separado da imagem */}
-                    <div className="md:col-span-5 p-6 md:p-10 flex flex-col justify-between bg-white">
-                      <div className="space-y-3 my-auto">
-                        <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-3 py-1 rounded-full">
-                          Destaque
-                        </span>
-                        <h2 className="text-xl md:text-3xl font-bold text-slate-800 leading-tight">
-                          {carrossel[slideAtual].titulo}
-                        </h2>
-                        {carrossel[slideAtual].subtitulo && (
-                          <p className="text-xs md:text-sm text-slate-500 leading-relaxed">
-                            {carrossel[slideAtual].subtitulo}
-                          </p>
-                        )}
-                        {carrossel[slideAtual].link_destino && (
-                          <div className="pt-2">
-                            <Link
-                              href={carrossel[slideAtual].link_destino}
-                              className="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-xs md:text-sm font-semibold px-6 py-2.5 rounded-xl transition shadow-xs"
-                            >
-                              Acessar →
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Controles e indicadores no rodapé da área de texto */}
-                      {carrossel.length > 1 && (
-                        <div className="flex items-center justify-between pt-6 mt-6 border-t border-slate-100">
-                          <div className="flex gap-2">
-                            {carrossel.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={() => setSlideAtual(idx)}
-                                aria-label={`Ir para slide ${idx + 1}`}
-                                className={`h-2 rounded-full transition-all ${idx === slideAtual ? 'w-7 bg-rose-600' : 'w-2 bg-slate-300 hover:bg-slate-400'
-                                  }`}
-                              />
-                            ))}
-                          </div>
-
-                          <div className="flex gap-2">
-                            <button
-                              onClick={slideAnterior}
-                              aria-label="Slide anterior"
-                              className="w-9 h-9 rounded-full border border-slate-200 hover:border-rose-500 hover:text-rose-600 text-slate-700 flex items-center justify-center text-base font-bold transition"
-                            >
-                              ‹
-                            </button>
-                            <button
-                              onClick={proximoSlide}
-                              aria-label="Próximo slide"
-                              className="w-9 h-9 rounded-full border border-slate-200 hover:border-rose-500 hover:text-rose-600 text-slate-700 flex items-center justify-center text-base font-bold transition"
-                            >
-                              ›
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
+                  {/* 1. TEXTO À ESQUERDA (Fora da imagem, com leitura limpa) */}
+                  <div className="md:col-span-5 p-6 md:p-10 flex flex-col justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white z-20 order-2 md:order-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-rose-400 mb-2">
+                      Destaque
+                    </span>
+                    <h2 className="text-xl md:text-3xl font-bold leading-snug">
+                      {carrossel[slideAtual].titulo}
+                    </h2>
+                    {carrossel[slideAtual].subtitulo && (
+                      <p className="text-xs md:text-sm text-slate-300 mt-3 leading-relaxed">
+                        {carrossel[slideAtual].subtitulo}
+                      </p>
+                    )}
+                    {carrossel[slideAtual].link_destino && (
+                      <Link
+                        href={carrossel[slideAtual].link_destino}
+                        className="mt-6 inline-block w-fit bg-rose-600 hover:bg-rose-700 text-white text-xs md:text-sm font-semibold px-6 py-2.5 rounded-xl transition shadow-sm"
+                      >
+                        Acessar →
+                      </Link>
+                    )}
                   </div>
-                </section>
-              )
-            }
+
+                  {/* 2. ÁREA DA IMAGEM / VÍDEO À DIREITA (Fundo ambiente + mídia inteira centralizada) */}
+                  <div className="md:col-span-7 relative overflow-hidden flex items-center justify-center bg-slate-900 min-h-[260px] md:min-h-[420px] order-1 md:order-2">
+                    {/* Luz ambiente suave baseada na cor da própria imagem (sem formas duplicadas) */}
+                    {carrossel[slideAtual].tipo_imagem !== 'VIDEO' && (
+                      <img
+                        src={carrossel[slideAtual].imagem_base64}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover blur-3xl opacity-45 scale-150 pointer-events-none"
+                      />
+                    )}
+
+                    {/* Mídia principal centralizada e inteira (sem cortes) */}
+                    {carrossel[slideAtual].tipo_imagem === 'VIDEO' ? (
+                      <video
+                        key={carrossel[slideAtual].id}
+                        src={carrossel[slideAtual].imagem_base64}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="relative z-10 w-full h-full max-h-[420px] object-contain"
+                      />
+                    ) : (
+                      <img
+                        src={carrossel[slideAtual].imagem_base64}
+                        alt={carrossel[slideAtual].titulo}
+                        className="relative z-10 w-full h-full max-h-[420px] object-contain transition-all duration-300"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* CONTROLES DO CARROSSEL */}
+                {carrossel.length > 1 && (
+                  <>
+                    <button
+                      onClick={slideAnterior}
+                      className="absolute z-30 left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold shadow-md transition"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={proximoSlide}
+                      className="absolute z-30 right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center text-lg font-bold shadow-md transition"
+                    >
+                      ›
+                    </button>
+                    <div className="absolute z-30 bottom-4 left-6 md:left-10 flex gap-2">
+                      {carrossel.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSlideAtual(idx)}
+                          className={`h-2 rounded-full transition-all ${idx === slideAtual ? 'w-7 bg-rose-500' : 'w-2 bg-white/40'
+                            }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </section>
+            )}
             {/* CARDS FIXOS / INICIATIVAS E PROJETOS (3 colunas preenchidas) */}
             {cards.length > 0 && (
               <section className="space-y-4">
@@ -250,35 +248,21 @@ export default function RootPage() {
                   {cards.map((card) => {
                     const CardBox = (
                       <div className="bg-white border border-slate-200 hover:border-rose-400 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition h-full flex flex-col group">
-                        <div className="relative aspect-[16/10] w-full bg-slate-100 overflow-hidden flex items-center justify-center">
-                          {/* Fundo sutil desfocado para evitar bordas vazias bruscas */}
-                          <img
-                            src={card.imagem_base64}
-                            alt=""
-                            aria-hidden="true"
-                            className="absolute inset-0 w-full h-full object-cover blur-xl opacity-25 scale-110 pointer-events-none"
-                          />
-                          <img
-                            src={card.imagem_base64}
-                            alt={card.titulo}
-                            className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition duration-300"
-                          />
-                        </div>
-                        <div className="aspect-[16/10] w-full bg-slate-100 overflow-hidden flex items-center justify-center p-2">
-                          {card.tipo_midia === 'VIDEO' ? (
+                        <div className="aspect-[16/10] w-full bg-slate-100 p-2 overflow-hidden flex items-center justify-center">
+                          {card.tipo_imagem === 'VIDEO' ? (
                             <video
                               src={card.imagem_base64}
                               autoPlay
                               loop
                               muted
                               playsInline
-                              className="w-full h-full object-contain rounded-lg"
+                              className="w-full h-full object-contain rounded-lg bg-slate-900"
                             />
                           ) : (
                             <img
                               src={card.imagem_base64}
                               alt={card.titulo}
-                              className="w-full h-full object-contain group-hover:scale-103 transition duration-300"
+                              className="w-full h-full object-contain rounded-lg group-hover:scale-105 transition duration-300"
                             />
                           )}
                         </div>
