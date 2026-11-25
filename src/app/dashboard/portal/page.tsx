@@ -8,7 +8,7 @@ interface DestaqueItem {
   titulo: string;
   subtitulo?: string;
   imagem_base64: string;
-  tipo_midia?: 'IMAGEM' | 'VIDEO';
+  tipo_imagem?: 'IMAGEM' | 'VIDEO';
   link_destino?: string;
   tipo: 'CARROSSEL' | 'CARD';
   ordem: number;
@@ -424,7 +424,7 @@ export default function GestaoPortalPage() {
                 itensFiltrados.map((item) => (
                   <tr key={item.id} className="hover:bg-slate-50 transition">
                     <td className="p-4 whitespace-nowrap">
-                      {item.tipo_midia === 'VIDEO' ? (
+                      {item.tipo_imagem === 'VIDEO' ? (
                         <video
                           src={item.imagem_base64}
                           muted
