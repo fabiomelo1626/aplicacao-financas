@@ -43,7 +43,7 @@ export default function RootPage() {
     <div className="min-h-screen bg-slate-50 flex flex-col">
 
       {/* 1. CABEÇALHO DE LARGURA TOTAL */}
-      <header className="bg-[#FCF9F2] border-b border-[#E6DEC8] relative w-full">
+      <header className="bg-white border-b border-slate-200 relative w-full">
         <div className="w-full px-6 lg:px-12 py-6 flex flex-col items-center justify-center relative">
 
           <div className="w-full flex justify-end md:absolute md:right-12 md:top-6 mb-4 md:mb-0">
@@ -86,7 +86,7 @@ export default function RootPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
           {/* COLUNA ESQUERDA (3 colunas): ENCOSTADA NA MARGEM ESQUERDA */}
-          <aside className="lg:col-span-3 bg-white rounded-2xl shadow-xs border border-[#E6DEC8] p-6 space-y-5 lg:sticky lg:top-6">
+          <aside className="lg:col-span-3 bg-white rounded-2xl shadow-xs border border-slate-200 p-6 space-y-5 lg:sticky lg:top-6">
             <div className="border-b border-slate-100 pb-4">
               <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-600 shrink-0"></span>
@@ -250,7 +250,7 @@ export default function RootPage() {
                   </p>
                 </div>
 
-                <div className="bg-white border border-[#E6DEC8] hover:border-rose-400 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition h-full flex flex-col group">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {cards.map((card) => {
                     const CardBox = (
                       <div className="bg-white border border-slate-200 hover:border-rose-400 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition h-full flex flex-col group">
@@ -292,7 +292,7 @@ export default function RootPage() {
       </main>
 
       {/* RODAPÉ DE LARGURA TOTAL */}
-      <footer className="bg-[#FCF9F2] border-t border-[#E6DEC8] py-6 mt-12 w-full">
+      <footer className="bg-white border-t border-slate-200 py-6 mt-12 w-full">
         <div className="w-full px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <span>© {new Date().getFullYear()} Instituto Viver Bem — Todos os direitos reservados.</span>
           <Link href="/login" className="text-slate-500 hover:text-rose-600 font-medium transition">
