@@ -69,8 +69,14 @@ export default function RootPage() {
           <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mt-3 text-center">
             Instituto Viver Bem
           </h1>
+          <p>
+            Rua José Correia de Melo - 57015290 - Vergel do lago, 535
+          </p>
+          <p>
+            (82)99607-2974
+          </p>
           <p className="text-xs md:text-sm text-slate-500 mt-1 text-center max-w-xl">
-            Acompanhe nossas ações e realize pagamentos ou contribuições via Pix e Transferência.
+            Acompanhe nossas ações e contibua com a vida de muitas pessoas via Pix e Transferência.
           </p>
         </div>
       </header>
