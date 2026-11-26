@@ -76,7 +76,7 @@ export default function RootPage() {
             (82)99607-2974
           </p>
           <p className="text-xs md:text-sm text-slate-500 mt-1 text-center max-w-xl">
-            Acompanhe nossas ações e contibua com a vida de muitas pessoas via Pix e Transferência.
+            Acompanhe nossas ações e contibua com a vida de muitas pessoas.
           </p>
         </div>
       </header>
