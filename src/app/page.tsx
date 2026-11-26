@@ -69,10 +69,10 @@ export default function RootPage() {
           <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mt-3 text-center">
             Instituto Viver Bem
           </h1>
-          <p>
+          <p className="text-xs md:text-sm text-slate-500 mt-1 text-center max-w-xl">
             Rua José Correia de Melo - 57015290 - Vergel do lago, 535
           </p>
-          <p>
+          <p className="text-xs md:text-sm text-slate-500 mt-1 text-center max-w-xl">
             (82)99607-2974
           </p>
           <p className="text-xs md:text-sm text-slate-500 mt-1 text-center max-w-xl">
